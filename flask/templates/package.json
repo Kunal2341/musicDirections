@@ -1,0 +1,16 @@
+{
+  "name": "musicly-hackathon",
+  "version": "1.0.0",
+  "description": "Intelligentlly informs the user of directions in a timely manner with maintaining excellent listening experience",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+  },
+  "author": "Kunal Aneja",
+  "license": "MIT Lisence",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Let AI Dog help you find an accessible route!">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="css/styles.css" rel="stylesheet"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry&key=AIzaSyDkNZylSVJND4hX0fJFCPAi52JGU8e-Z4o"></script>
+    <title>Musicly Directions</title>
+</head>
+<body class="d-flex h-100 text-center text-white bg-dark">
+<div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+        <div>
+            <h3 class="float-md-start mb-0">Musicly Directions</h3>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link" href="/about.html">About</a>
+            </nav>
+        </div>
+    </header>
+    <main class="px-3">
+        <img src="/Users/kunal/Documents/AAPersonalAIPROJECT/MUSICBEAT/flask/static/img/logoNew.jpg"
+             alt="image of directions with music notes and spotify connection"
+             class="splash img-fluid"/>
+        <h1><b>Helpful optimized directions connected to your music</b></h1>
+        <form id="search-form" class="row gy-2 gx-3 justify-content-md-center" action="/callFunction" method="post">
+
+            <div class="col-9 offset-md-1">
+                <h4>TRANSPORTATION</h4>
+                <select class="form-select" aria-label="Campus">
+                    <option selected>Transportation Type</option>
+                    <option value="pace">Driving</option>
+                    <option value="mit">Walking</option>
+                    <option value="gt">Biking</option>
+                </select>
+                <label class="visually-hidden" for="currentLocation">Where are You?</label>
+                <br>
+                <!-- <div class="input-group">
+                   <input type="text" class="form-control" id="currentLocation"
+                     placeholder="Please enter your current location: 55 Main Street, Mainville, NY 55555 or lat, long">
+                   </div> -->
+                <h4>LOCATION</h4>
+                <div class="row">
+                    <div class="col-6">
+                        <div>
+                            <p>Automatically Calculating your current location</p>
+                            <p id="locationOutput"></p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                            <p>Input Address</p>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="destination"
+                                       placeholder="Destination: 229 B Baker Street, Mainville, NY 55555, or lat, long">
+                            </div>
+                            <p>OR Upload Image:</p>
+                            <div class="input-group">
+                                <input type="file" id="img" name="img" class="form-control" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<p> Please make sure to allow location in top right corner.</p>-->
+                <!--<label class="visually-hidden" for="destination">Where are you Going?</label> -->
+                <br>
+                <h4> Spotify Information </h4>
+
+                <div class="row">
+                    <div class="col-6">
+                        <input type="text" class="form-control" id="spotifyUser"
+                               placeholder="Spotify Username or email">
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" id="spotifyPass"
+                               placeholder="Spotify Password" type="password">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <h2>Spotify Connection</h2>
+                <div>
+                    <img src="{{ spotifyIMG }}" alt="Spotify Image">
+                    <p><b>{{ songName }}</b> by <b> {{ artistName }} </b></p>
+                    <p> {{ timeDetailsTxt }}</p>
+                    <!--
+                    https://stackoverflow.com/questions/46785507/python-flask-display-image-on-a-html-page/46794505
+                    songName, artistNam, timeDetailsTxt, spotifyIMG
+                    <p>Listened: {{ minsPlayed }} minutes and {{ secsPlayed }} out of {{ totalSongMins }} and {{ totalSongSecs}} seconds</p>
+
+                       <p>Song Name: {{ Song }}</p>-
+                       <p>Artist Name: {{ Song }}</p>
+                       <p>Current Time: {{ accessCode }}</p>
+                       <p>{{ text }}</p>
+
+                       songName
+                       artistName
+                       minsPlayed
+                       secsPlayed
+                       totalSongMins
+                       totalSongSecs
+                       -->
+                </div>
+            </div>
+            <div class="col-6">
+                <h2>MAP</h2>
+                <div>
+                    <p>INSERT EMBEDED MAP</p>
+                </div>
+            </div>
+        </div>
+
+
+        <h1>START DIRECTIONS</h1>
+        <form action="/result" method="post">
+            <button name="runCalculations" type="submit" class="btn btn-primary">BEGIN</button>
+        </form>
+
+        {{result}}
+        <button name="forwardBtn" onclick="move_forward()">Forward</button>
+
+        <h2>Button Pressed: {{ButtonPressed}}</h2>
+        <form method="post">
+            <input type="submit" value="Click Me">
+        </form>
+
+
+
+
+        <!--
+        <div id="loading-icon" class="d-none">
+          <img src="images/Rolling-1s-200px.gif" alt="loading indicator" width="200" height="200" aria-hidden="true"/>
+          <p>Calculating route connected to your music...</p>
+        </div>
+        <div id="using-XMLHttpRequest"></div>
+        <div id="directionsResult" class="row d-none">
+          <div class="col-6">
+            <h2>Directions</h2>
+            <div id="directionsSteps"></div>
+          </div>
+          <div class="col-6">
+            <div id="map_canvas" style="border: 2px solid #3872ac;"></div>
+          </div>
+        </div>
+        </main>
+        <footer class="text-white-50">
+        <p>© 2021 AI Dog</p>
+        </footer>
+        </div>
+        </body>
+        <script id="loggedin-template" type="text/x-handlebars-template">
+        <h1>Logged in as </h1>
+        <img id="avatar" width="200" src="" />
+        <dl>
+        <dt>Display name</dt><dd></dd>
+        <dt>Username</dt><dd></dd>
+        <dt>Email</dt><dd></dd>
+        <dt>Spotify URI</dt><dd><a href=""></a></dd>
+        <dt>Link</dt><dd><a href=""></a></dd>
+        <dt>Profile Image</dt><dd></dd>
+        </dl>
+        <p><a href="/">Log in again</a></p>
+        </script>
+
+        onclick="getLocation()"-->
+        <script>
+         var x = document.getElementById("locationOutput");
+
+         function getLocation() {
+           if (navigator.geolocation) {
+         	navigator.geolocation.getCurrentPosition(showPosition);
+           } else {
+         	x.innerHTML = "Geolocation is not supported by this browser.";
+           }
+         }
+
+         function showPosition(position) {
+           x.innerHTML = "<b> Location:</b> Latitude: " + position.coords.latitude +
+           ", Longitude: " + position.coords.longitude;
+         }
+         // INSERT MORE DETAILS FOR CALLING CLOUD FUNCTION
+         function calculateDirections(){}
+         app.get('/login', function(req, res) {
+         var scopes = 'user-read-private user-read-email';
+         res.redirect('https://accounts.spotify.com/authorize' +
+           '?response_type=code' +
+           '&client_id=' + my_client_id +
+           (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+           '&redirect_uri=' + encodeURIComponent(redirect_uri));
+         })
+
+
+
+        </script>
+</html>

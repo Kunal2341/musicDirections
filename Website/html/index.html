@@ -1,0 +1,350 @@
+<!doctype html>	
+<html lang="en">	
+<head>	
+  <!-- Required meta tags -->	
+  <meta charset="utf-8">	
+  <meta name="viewport" content="width=device-width, initial-scale=1">	
+  <meta name="description" content="Let AI Dog help you find an accessible route!">
+  <!-- Bootstrap CSS -->	
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"	
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">	
+  <link href="css/styles.css" rel="stylesheet" />	
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry&key=AIzaSyDkNZylSVJND4hX0fJFCPAi52JGU8e-Z4o"></script>	
+  <title>Musicly Directions</title>	
+</head>	
+<body class="d-flex h-100 text-center text-white bg-dark">	
+  <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">	
+    <header class="mb-auto">	
+      <div>	
+        <h3 class="float-md-start mb-0">Musicly Directions</h3>	
+        <nav class="nav nav-masthead justify-content-center float-md-end">	
+          <a class="nav-link active" aria-current="page" href="/">Home</a>	
+          <a class="nav-link" href="/about.html">About</a>	
+        </nav>	
+      </div>	
+    </header>	
+	
+	
+    <main class="px-3">	
+      <img src="images/splash.jpg" alt="splash image of a woman and man walking with a service animal"	
+        class="splash img-fluid" />	
+      <p class="lead">Helpful optimized directions connected to your music</p>	
+      <form id="search-form" class="row gy-2 gx-3 justify-content-md-center">	
+        <div class="col-9 offset-md-1">	
+          <select class="form-select" aria-label="Campus">	
+            <option selected>Transportation Type</option>	
+            <option value="pace">Driving</option>	
+            <option value="mit">Walking</option>	
+            <option value="gt">Biking</option>	
+          </select>	
+          <label class="visually-hidden" for="currentLocation">Where are You?</label>	
+		  <br>
+          <!-- <div class="input-group">	
+            <input type="text" class="form-control" id="currentLocation"	
+              placeholder="Please enter your current location: 55 Main Street, Mainville, NY 55555 or lat, long">	
+          </div>	
+		  -->
+		  <p> Automatically Calculating your current location, please make sure to allow location in top right corner.</p>
+		   <p id="locationOutput"></p>
+          <label class="visually-hidden" for="destination">Where are you Going?</label>	
+          <div class="input-group">	
+            <input type="text" class="form-control" id="destination"	
+              placeholder="Destination: 229 B Baker Street, Mainville, NY 55555, or lat, long">	
+			 	
+          </div>
+			<br>
+		  <p> Spotify Information </p>
+		  <div class="input-group">	
+		  
+		  <input type="text" class="form-control" id="spotifyUser"	
+              placeholder="Spotify Username or email">	
+			 <input type="text" class="form-control" id="spotifyPass"	
+              placeholder="Spotify Password" type="password">
+		  </div>
+        </div>	
+        <button type="button" id="submit" class="btn btn-primary" onclick="getLocation()" >Submit</button>	
+      </form>	
+		
+		
+
+      <div id="loading-icon" class="d-none">	
+        <img src="images/Rolling-1s-200px.gif" alt="loading indicator" width="200" height="200" aria-hidden="true"/>	
+        <p>Calculating route connected to your music...</p>	
+      </div>	
+      <div id="using-XMLHttpRequest"></div>	
+      <div id="directionsResult" class="row d-none">	
+        <div class="col-6">	
+          <h2>Directions</h2>	
+          <div id="directionsSteps"></div>	
+        </div>	
+        <div class="col-6">	
+          <div id="map_canvas" style="border: 2px solid #3872ac;"></div>	
+        </div>	
+      </div>	
+    </main>	
+    <footer class="text-white-50">	
+      <p>© 2021 AI Dog</p>	
+    </footer>	
+  </div>	
+</body>	
+<script id="loggedin-template" type="text/x-handlebars-template">
+    <h1>Logged in as </h1>
+    <img id="avatar" width="200" src="" />
+    <dl>
+     <dt>Display name</dt><dd></dd>
+     <dt>Username</dt><dd></dd>
+     <dt>Email</dt><dd></dd>
+     <dt>Spotify URI</dt><dd><a href=""></a></dd>
+     <dt>Link</dt><dd><a href=""></a></dd>
+     <dt>Profile Image</dt><dd></dd>
+    </dl>
+    <p><a href="/">Log in again</a></p>
+ </script>
+<script>	
+	
+	var x = document.getElementById("locationOutput");
+	
+	function getLocation() {
+	  if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition);
+	  } else { 
+		x.innerHTML = "Geolocation is not supported by this browser.";
+	  }
+	}
+
+	function showPosition(position) {
+	  x.innerHTML = "<b> Location:</b> Latitude: " + position.coords.latitude + 
+	  ", Longitude: " + position.coords.longitude;
+	}
+	// INSERT MORE DETAILS FOR CALLING CLOUD FUNCTION
+	function calculateDirections(){}
+	app.get('/login', function(req, res) {
+	var scopes = 'user-read-private user-read-email';
+	res.redirect('https://accounts.spotify.com/authorize' +
+	  '?response_type=code' +
+	  '&client_id=' + my_client_id +
+	  (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+	  '&redirect_uri=' + encodeURIComponent(redirect_uri));
+	})
+
+  /*
+  //const azureURL = 'https://accessibledirections.azurewebsites.net/api/dirAPI';	
+  const azureURL = 'https://accesibledirectionsv2.azurewebsites.net/api/dirapi';	
+  const submitButton = document.getElementById('submit');	
+  const searchFormContainer = document.getElementById('search-form');	
+  const loadingIcon = document.getElementById('loading-icon');	
+  const directionsResultContainer = document.getElementById('directionsResult');	
+  let startAddressValue = '40.71004552109853,-74.00802245514046';	
+  let endAddressValue = '40.711638353732006,-74.00871970294276';	
+  submitButton.addEventListener("click", getDirections, false);	
+  const currentLocationField = document.getElementById('currentLocation');	
+  const destinationField = document.getElementById('destination');	
+  currentLocationField.addEventListener('input', updateStartAddressValue);	
+  destinationField.addEventListener('input', updatEndAddressValue);	
+  function updateStartAddressValue(e) {	
+    startAddressValue = document.getElementById('currentLocation').value;	
+  }	
+  function updatEndAddressValue(e) {	
+    endAddressValue = document.getElementById('destination').value;	
+  }	
+  function getDirections(e) {	
+    console.log('getDirections called');	
+    console.log('inputs: ' + startAddressValue + ' - ' + endAddressValue);	
+    const $div = document.querySelector('#using-XMLHttpRequest');	
+    const directionsAPI = azureURL + '?startAddress=' + startAddressValue + '&endAddress=' + endAddressValue;	
+    var elem = document.createElement('textarea');	
+    elem.innerHTML = directionsAPI;	
+    var decodedurl = elem.innerText;
+    //console.log(decodedurl);	
+    const xhr = new XMLHttpRequest(),	
+      method = "GET",	
+      url = decodedurl;	
+    xhr.open(method, url, true);	
+    xhr.onreadystatechange = function () {	
+      // In local files, status is 0 upon success in Mozilla Firefox	
+      if (xhr.readyState === XMLHttpRequest.DONE) {	
+        var status = xhr.status;	
+        if (status === 0 || (status >= 200 && status < 400)) {	
+          // The request has been completed successfully	
+          //console.log(xhr.responseText.json());	
+          var responseData = xhr.responseText;	
+          // alert("Success: " + responseData.length + " chars received.");	
+          // console.log(responseData);	
+          outputDirections(JSON.parse(responseData));	
+        } else {	
+          // Oh no! There has been an error with the request!	
+          console.log("error!");	
+        }	
+      }	
+    };	
+    xhr.send();	
+    // hide form and disalay loader	
+    searchFormContainer.classList.add('d-none');	
+    loadingIcon.classList.remove('d-none');	
+  }	
+  function outputDirections(responseData) {	
+    loadingIcon.classList.add('d-none');	
+    directionsResultContainer.classList.remove('d-none');	
+    const directionsSteps = document.getElementById('directionsSteps');	
+    directionsSteps.innerHTML += '<p>From: ' + startAddressValue + '</p><p>To: ' + endAddressValue + '</p>';	
+
+    directionsSteps.innerHTML += '<p>Elevation Change: ' + responseData.DIRECTIONS.elevationChange_meters.toFixed(3) + ' meters</p>';
+
+    directionsSteps.innerHTML += '<ul>';	
+    // loop through responseData and cleaned up describeMovement steps	
+    for (const [key, value] of Object.entries(responseData.DIRECTIONS.process)) {	
+      directionsSteps.innerHTML += '<li>' + value.describeMovement.substring(2).replace(/(<([^>]+)>)/ig, '').replace("Destination will be", ". Destination will be").slice(0, -1);	
+        directionsSteps.innerHTML += '<span class="distance"> - ' + value.distance_meters + ' meters / ≈' + parseInt(value.distance_meters * 3.281) + ' feet</span>';	
+        directionsSteps.innerHTML += '<span class="time"> - ' + parseInt(value.duration_seconds) + ' seconds / ≈' + parseInt(value.duration_seconds/60) + ' minutes</span>';	
+      directionsSteps.innerHTML +=  '</li>';	
+    }	
+    directionsSteps.innerHTML += '</ul>';	
+    var point = responseData.DIRECTIONS.overview_polyline;	
+    // Call Google Map init. The co-ord can be center of start-end
+	initialize_map(point,responseData.DIRECTIONS.startLocation.latitude,responseData.DIRECTIONS.startLocation.longitude, responseData);
+	}
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+
+  // Makes Google Map center based on lat, long
+  function initialize_map(polyline_pt,lat,long, responseData2) {
+    //alert("Map not available");
+    var myLatlng = new google.maps.LatLng(lat, long);
+    var myOptions = {
+        zoom: 17,
+        center: myLatlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    
+    var decodedPath = google.maps.geometry.encoding.decodePath(polyline_pt); 
+    var decodedLevels = decodeLevels("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+    var setRegion = new google.maps.Polyline({
+        path: decodedPath,
+        levels: decodedLevels,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        map: map
+    });
+    /*
+    infoWindowLocation = new google.maps.InfoWindow();
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          infoWindowLocation.setPosition(pos);
+          infoWindowLocation.setContent("Your Here");
+          infoWindowLocation.open(map);
+        },
+        () => {
+          handleLocationError(true, infoWindowLocation, map.getCenter());
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindowLocation, map.getCenter());
+    }
+    
+      for (const[key, value] of Object.entries(responseData2.IMGENCODED)) {
+      	//console.log(key);
+        //console.log(value);
+        
+        if (!(responseData2.IMGENCODED.sideWalk == "") && 
+            !(responseData2.IMGENCODED.lat == "") && 
+            !(responseData2.IMGENCODED.long == "") && 
+            !(responseData2.IMGENCODED.encodedImg == "")) {
+          if(value.sideWalk == "True"){
+            var textDisplayTitle = "Accesible ✓"
+          } else if (value.sideWalk == "False"){
+            var textDisplayTitle = "Not Accesible ✖"
+          } else {
+            var textDisplayTitle = "Unknown"
+          }
+          var contentTxt = "<div style='float:left'><img src='" + "data:image/png;base64," + value.encodedImg + "' style='width:70px;height:70px;' ></div><div style='float:right; padding: 10px;'><b><p style='color:black;' > " + textDisplayTitle + "</p></b><p style='color:black;' >Latitude: " + value.lat + "</p> <p style='color:black;' >Longitude: " +  value.long + "</p></div>"
+          
+          
+          eval("marker" + key + " = new google.maps.Marker({map: map, position: new google.maps.LatLng(value.lat, value.long), title : 'Point' });")
+          
+            
+          
+          eval("infowindow" + key + "=new google.maps.InfoWindow({content: contentTxt});")
+          
+          console.log(infowindowA)
+          
+          //eval("marker" + key + ".addListener('click', () => {infowindow" + key + ".open(map, marker" + key + "); }); infowindow" + key + ".open(map, marker" + key + ");")
+          eval("marker" + key + ".addListener('click', () => {infowindow" + key + ".open(map, marker" + key + "); }); ")
+        
+        
+        } 
+    }
+  
+
+  }
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+      browserHasGeolocation
+        ? "Error: The Geolocation service failed."
+        : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
+  }
+  function decodeLevels(encodedLevelsString) {
+      var decodedLevels = [];
+      for (var i = 0; i < encodedLevelsString.length; ++i) {
+          var level = encodedLevelsString.charCodeAt(i) - 63;
+          decodedLevels.push(level);
+      }
+      return decodedLevels;
+  }
+  /*	
+  var map;	
+  var bounds = new google.maps.LatLngBounds();	
+  function initialize() {	
+    console.log('map loaded!');	
+    map = new google.maps.Map(	
+      document.getElementById("map_canvas"), {	
+      center: new google.maps.LatLng(34, 108),	
+      zoom: 13,	
+      mapTypeId: google.maps.MapTypeId.ROADMAP	
+    });	
+    var jsonData = {	
+      "overview_polyline": {	
+        "points": "wgnwFzwubMy@pBQ`@UOcBsAcBuA{AmAGK_@UkAaA\\g@VTBDv@n@Zq@PQAQHOa@cAQg@"	
+      }	
+    };	
+    var path = google.maps.geometry.encoding.decodePath(jsonData.overview_polyline.points);	
+    console.log(path);	
+    for (var i = 0; i < path.length; i++) {	
+      bounds.extend(path[i]);	
+    }	
+    var polyline = new google.maps.Polyline({	
+      path: path,	
+      strokeColor: '#FF0000',	
+      strokeOpacity: 1.0,	
+      strokeWeight: 2,	
+      fillColor: '#FF0000',	
+      fillOpacity: 0.35,	
+      map: map	
+      // strokeColor: "#0000FF",	
+      // strokeOpacity: 1.0,	
+      // strokeWeight: 2	
+    });	
+    polyline.setMap(map);	
+    map.fitBounds(bounds);	
+  }	
+  */	
+</script>	
+</html>

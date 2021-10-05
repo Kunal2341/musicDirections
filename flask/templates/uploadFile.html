@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<title>Resume Matching Vdart</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+    <a href="#home" class="w3-bar-item w3-button"><b>Vdart</b> Digital</a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="#projects" class="w3-bar-item w3-button">Upload Resumes</a>
+      <a href="#about" class="w3-bar-item w3-button">Companies</a>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+  <img class="w3-image" src="static/img/person-typing.jpg" alt="Architecture" width="1500" height="800">
+  <div class="w3-display-middle w3-margin-top w3-center">
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Client Resume Matching</b></span> <span class="w3-hide-small w3-text-light-grey"></span></h1>
+  </div>
+</header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+
+
+
+  <div class="w3-container w3-padding-32" id="contact">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Upload Resume</h3>
+    <p>*Only .pdf files are allowed to be uploaded</p>
+    <form method=post enctype=multipart/form-data >
+      <input type="file" id="doc" name=file accept="~/*"></input>
+      <input type="submit" value=Upload>
+    </form>
+    <i>The File Directory is: "<b> {{fileDir}}</b>"</i>
+    <br>
+    <i>The Image Directory is: "<b> {{imagePath}}</b>"</i>
+    <form action="/home" method="post">
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-10">
+            <button type="submit" value="home" class="w3-button w3-black w3-section">
+              Submit
+            </button>
+          </div>
+        </div>
+    </form>
+
+  </div>
+
+
+<!-- End page content -->
+</div>
+
+
+
+</body>
+</html>
+
+<!--
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/styles.css">
+
+  <title>Resume Matching Vdart</title>
+</head>
+
+<body>
+  <nav id="navBar" class="navbar navbar-dark navbar-expand-sm fixed-top">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <a class="navbar-brand mr-auto" href="#">
+        <img id="vDartImg" class="" src="static/img/vdart.svg" height="70" width="70">
+      </a>
+
+
+      <div class="collapse navbar-collapse" id="Navbar">
+        <ul class="navbar-nav mr-auto offset-8">
+          <li class="nav-item active"><a id="homeLink" class="nav-link" href="#"><span class="fa fa-home fa-lg"></span>  Home</a></li>
+          <li class="nav-item"><a id="aboutusLink" class="nav-link" href="https://vdart.com/about-us/"><span class="fa fa-info fa-lg"></span>  About Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <header class="jumbotron" style="background-image: url('static/img/Team.jpg');">
+    <div class="container-fluid">
+      <div class="row row-header">
+        <div class="offset-3 col-6 align-items-center text-center head-text">
+          <h1 style="font-size: 70px;">Client Resume Matching</h1>
+          <p class="d-none d-sm-block" style="font-size: 30px;"><strong></strong></p>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="col-12 body-page">
+    <div class="container">
+      <div class="row" style= "margin-top:30px;">
+        <div class="col-12">
+          <h2 style="color: #364f6b">Upload Resume</h2>
+        </div>
+      </div>
+      <div class="row row-content">
+        <div class="col-12">
+          <form method=post enctype=multipart/form-data >
+            <div class="form-group row">
+              <label for="img" class="col-md-2 col-form-label">Resume</label>
+              <i>*Only .pdf files are allowed to be uploaded</i>
+              <div class="col-md-2">
+                <input type="file" id="doc" name=file accept="~/*"></input>
+                <br>
+                <br>
+                <input type=submit value=Upload>
+              </div>
+
+            </div>
+          </form>
+          <i>The File Directory is: "<b> {{fileDir}}</b>"</i>
+          <br>
+          <i>The Image Directory is: "<b> {{imagePath}}</b>"</i>
+          <form action="/home" method="post">
+            <div class="form-group row">
+              <div class="offset-md-2 col-md-10">
+                <button type="submit" value="home" class="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <div class="col-12 body-page">
+    <div class="container">
+      <div class="row" style= "margin-top:30px;">
+        <div class="col-12">
+          <h2 style="color: #364f6b">Client Application Form</h2>
+        </div>
+      </div>
+      <div class="row row-content">
+        <div class="col-12">
+          <form>
+            <div class="form-group row">
+              <label for="name" class="col-md-2 col-form-label">Name</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" id="name" name="name" placeholder="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="Department" class="col-md-2 col-form-label">Email</label>
+              <div class="col-md-10">
+                <input type="email" class="form-control" id="email" name="email" placeholder="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="Department" class="col-md-2 col-form-label">Tel</label>
+              <div class="col-md-10">
+                <input type="tel" class="form-control" id="tel" name="tel" placeholder="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="img" class="col-md-2 col-form-label">Resume</label>
+              <div class="col-md-2">
+                <input type="file" id="doc" name="doc" accept="~/*"></input>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-md-2 col-md-10">
+                <button type="submit" class="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/usm/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="js/scroll.js"></script>
+
+</body>
+</html>
+-->
