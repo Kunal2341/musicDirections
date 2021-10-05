@@ -2,6 +2,7 @@
 
 **Musicly** is a addon on top of your spotify. While driving is tracks your position and estimated the perfect time to annouce a direction change while giving the perfect listening experience. 
 
+![logo](https://github.com/Kunal2341/musicDirections/blob/main/LOGO/logo.png?raw=true)
 
 
 # What does it do
@@ -71,3 +72,11 @@ https://devpost.com/kunal-aneja101?ref_content=user-portfolio&ref_feature=portfo
 https://docs.aws.amazon.com/polly/latest/dg/get-started-what-next.html
 
 https://towardsdatascience.com/finding-choruses-in-songs-with-python-a925165f94a8
+
+# Contact
+
+**Date Created**: `April 2021`
+
+**Author**: `Kunal Aneja`
+
+**Email**: `kunal.aneja101@gmail.com`
